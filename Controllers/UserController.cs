@@ -16,39 +16,47 @@ namespace WebApplication1.Controllers
             _context = context;
         }
 
-        [HttpGet("users")]                     
+        [HttpGet("users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             return Ok(await _context.User.AsNoTracking().ToListAsync());
         }
 
-        [HttpGet("abonents")]                 
+        [HttpGet("abonents")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Abonent>>> GetAllAbonents()
         {
             return Ok(await _context.Abonent.AsNoTracking().ToListAsync());
         }
         [HttpGet("packages")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Abonent>>> GetAllPackages()
         {
             return Ok(await _context.Package.AsNoTracking().ToListAsync());
         }
         [HttpGet("agreements")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Abonent>>> GetAllAgreements()
         {
             return Ok(await _context.Agreement.AsNoTracking().ToListAsync());
         }
         [HttpGet("history")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<Abonent>>> GetAllhistorys()
         {
             return Ok(await _context.History.AsNoTracking().ToListAsync());
         }
 
         [HttpPost("pusers")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]     
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> InsertUser([FromBody] User user)
         {
             if (!ModelState.IsValid)
@@ -62,11 +70,15 @@ namespace WebApplication1.Controllers
             await _context.SaveChangesAsync();
 
            
-            return Ok(await _context.User.AsNoTracking().ToListAsync());
+            return Created();
         }
 
         [HttpPut("{id}")]
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateUser(int id, [FromBody] User updateuser)
         {
             if(id!=updateuser.ID)
@@ -103,7 +115,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("{id}")]
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteUser(int id, [FromBody] User updateuser)
         {
             if (id != updateuser.ID)
@@ -136,6 +152,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("pabonent")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> InsertAbonent([FromBody] Abonent user)
         {
             if (!ModelState.IsValid)
@@ -149,11 +168,15 @@ namespace WebApplication1.Controllers
             await _context.SaveChangesAsync();
 
 
-            return Ok(await _context.History.AsNoTracking().ToListAsync());
+            return Created();
         }
 
         [HttpPut("p{id}")]
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateAbonent(int id, [FromBody] Abonent updateuser)
         {
             if (id != updateuser.ID)
@@ -190,7 +213,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("p{id}")]
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteAbonent(int id, [FromBody] Abonent updateuser)
         {
             if (id != updateuser.ID)
@@ -227,6 +254,9 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("ppackage")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> InsertPackage([FromBody] Package user)
         {
             if (!ModelState.IsValid)
@@ -244,7 +274,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPut("t{id}")]
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdatePackage(int id, [FromBody] Package updateuser)
         {
             if (id != updateuser.ID)
@@ -280,7 +314,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete("t{id}")]
-
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]     
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteUser(int id, [FromBody] Package updateuser)
         {
             if (id != updateuser.ID)
